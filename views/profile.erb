@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>IronTwit-profil</title>
+	</head>
+  	<body>
+<h1>Welcome to Irontwit <%= session[:username]%>!</h1>
+<h2>Post your twits...</h2>
+
+<form action='crear_twit' method='post'> 
+	<input type="text" name="message">
+	<button type="submit">Publicar</button>
+</form>
+
+<ul>
+	<% @twits.each do |twit| %>
+  		<li><%= twit %></li>
+	<% end %>
+</ul>
+
+<a href="/logout">logout</a>
+</body>
+</html>
