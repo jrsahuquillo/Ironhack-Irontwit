@@ -3,13 +3,14 @@ require 'haml'
 require 'pry'
 require "sinatra/reloader" if development?
 require_relative 'lib/user.rb'
+require_relative 'lib/twit.rb'
 
 
 set :haml, format: :html5
 enable(:sessions)
 
 @@users ||= []
-
+@@twits = []
 #@users = [User.new("Sahu", "12345"), User.new("JRSC", "12345")]
 #@twits = [Twit.new("Lorem Ipsum", "Sahu"), Twit.new("Ouyeahhh!", "Sahu")]
 
@@ -62,7 +63,7 @@ post '/login' do
 end
 
 get '/profile' do
-  @twits = []
+  @@twits
   erb(:profile)
 end
 
@@ -72,8 +73,7 @@ get "/logout" do
 end
 
 post '/crear_twit' do
-  binding.pry
-  @@twits << Twit.new(params[:message])
+  @@twits << Twit.new(params[:message], session[:username])
   redirect to("/profile")
 end
 

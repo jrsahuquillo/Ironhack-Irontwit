@@ -44,3 +44,6 @@ class Twit
 
   # end
 end
+
+tuit = Twit.new("Hey ho, lets go!")
+puts tuit.msg

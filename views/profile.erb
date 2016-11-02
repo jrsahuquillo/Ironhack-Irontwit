@@ -13,8 +13,8 @@
 </form>
 
 <ul>
-	<% @twits.each do |twit| %>
-  		<li><%= twit %></li>
+	<% @@twits.each do |twit| %>
+  		<li><%= twit.msg %></li>
 	<% end %>
 </ul>
 
