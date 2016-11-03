@@ -11,6 +11,7 @@ enable(:sessions)
 
 @@users ||= []
 @@twits = []
+@twits_to_print = []
 #@users = [User.new("Sahu", "12345"), User.new("JRSC", "12345")]
 #@twits = [Twit.new("Lorem Ipsum", "Sahu"), Twit.new("Ouyeahhh!", "Sahu")]
 
@@ -18,6 +19,10 @@ before '/profile' do
    unless session[:logged_in] 
     redirect to('/')
 	end
+end
+
+before '/' do
+   session[:logged_in] = false
 end
 
 def user_valid?(name, password)
@@ -35,7 +40,7 @@ post '/register' do
   if params[:username] == "" || params[:password] == ""
   	 @error = "Usuario o contraseña en blanco"
   	 session[:errors] = @error
-  	erb(:login)
+  	 erb(:login)
   elsif @@users.find { |user| user.name == params[:username] }
   	@error = "You are registered yet, please click Log in"
    	session[:errors] = @error
@@ -63,12 +68,14 @@ post '/login' do
 end
 
 get '/profile' do
-  @@twits
-  erb(:profile)
+    @twits_to_print = @@twits.select { |twit| twit.username == session[:username]}
+    erb(:profile)
 end
 
 get "/logout" do
   session[:logged_in] = false
+  # session[:username] = ""
+  # session[:password] = ""
   redirect to("/")
 end
 

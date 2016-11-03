@@ -5,7 +5,7 @@ class Twit
   attr_accessor :msg, :username
   attr_reader :msg, :username
   
-  def initialize(msg, start_date = nil, end_date = nil)
+  def initialize(msg, username, start_date = nil, end_date = nil)
     @start_date = start_date || Date.today - 1
     @end_date = end_date || Date.today + 1
     @msg = msg
@@ -45,5 +45,5 @@ class Twit
   # end
 end
 
-tuit = Twit.new("Hey ho, lets go!")
-puts tuit.msg
+# tuit = Twit.new("Hey ho, lets go!")
+# puts tuit.msg
